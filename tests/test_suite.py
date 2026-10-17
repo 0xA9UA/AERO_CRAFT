@@ -376,6 +376,26 @@ class SuiteTests(unittest.TestCase):
         self.assertNotIn("isError", replies[3]["result"])
         self.assertEqual(replies[4]["error"]["code"], -32601)
 
+    def test_mcp_unicode_resource_with_legacy_pipe_encoding(self):
+        request = {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "resources/read",
+            "params": {"uri": "aerocraft://docs/workflows/porting.md"},
+        }
+        env = {**os.environ, "PYTHONIOENCODING": "cp1252"}
+        proc = subprocess.run(
+            [sys.executable, ROOT / "aero.py", "mcp", "--workspace", self.root],
+            input=json.dumps(request) + "\n",
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=True,
+            env=env,
+        )
+        result = json.loads(proc.stdout)
+        self.assertIn("Java ↔ Bedrock", result["result"]["contents"][0]["text"])
+
     def test_cli_failed_validation_exit_code(self):
         p = subprocess.run(
             [sys.executable, ROOT / "aero.py", "validate", self.root],

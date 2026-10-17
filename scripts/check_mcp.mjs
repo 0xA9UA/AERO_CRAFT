@@ -25,6 +25,8 @@ for (const kind of ['aerocraft', 'rea']) {
       assert.ok(JSON.parse(value.content[0].text)['bedrock-stable']);
       const resources = await client.listResources();
       assert.ok(resources.resources.length >= 4);
+      const guide = await client.readResource({uri:'aerocraft://docs/workflows/porting.md'});
+      assert.ok(guide.contents[0].text.includes('Java ↔ Bedrock'));
     } else {
       assert.ok(tools.some(t=>t.name==='binary_session'));
       const value = await client.callTool({name:'binary_session',arguments:{}});

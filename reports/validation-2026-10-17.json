@@ -23,6 +23,11 @@
       "packs/resource/manifest.json": "91d694180920145e53b7ea9f5375b16626e4ef2545920e156693378b70cef692"
     }
   },
+  "clean_clone": {
+    "bedrock_build": "passed",
+    "minimal_install": "passed",
+    "source": "https://github.com/0xA9UA/AERO_CRAFT"
+  },
   "date": "2026-10-17",
   "decompilers": {
     "cfr": "passed on generated Fabric JAR",
@@ -40,6 +45,11 @@
     "version": "0.2.1-rc.2"
   },
   "host": "Linux x64 / Debian 13",
+  "java8_smoke": {
+    "compile": "passed",
+    "inventory_class_major_java": 8,
+    "jdk_install": "passed"
+  },
   "java_builds": {
     "fabric-1.21.1": {
       "build": "passed",
@@ -118,6 +128,6 @@
   "python": "3.13.5",
   "unit_tests": {
     "failed": 0,
-    "passed": 36
+    "passed": 37
   }
 }

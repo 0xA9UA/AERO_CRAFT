@@ -4,7 +4,9 @@ Local validation on **2026-10-17**, Debian 13 Linux x64, Python 3.13.5. Machine-
 
 | Check | Result | Boundary |
 |---|---|---|
-| Python unit/contract suite | 36 passed | Archive traversal/links/collisions, checksums, output preservation, inventories, manifests, recipes, plans, workspace confinement and protocol errors |
+| Python unit/contract suite | 37 passed | Archive traversal/links/collisions, checksums, output preservation, inventories, manifests, recipes, plans, workspace confinement and protocol errors |
+| Fresh clone from GitHub | Install and Bedrock build passed | Independent checkout with fresh managed Node and npm packages |
+| JDK 8 | Installed, compiled class and JAR inspection passed | Legacy runtime toolchain smoke |
 | Standard installation | Passed | Managed Node 24.22.0, JDK 21/25, pinned npm graph, CFR/Vineflower; JDK 17 installed during Forge build |
 | Fabric 1.21.1 | Gradle build passed | Compiled and remapped JAR; game startup not tested |
 | Fabric 26.1 | Gradle build passed on JDK 25 | Compiled Java 25 JAR; game startup not tested |

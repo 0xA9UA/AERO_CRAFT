@@ -118,6 +118,10 @@ def parser():
 
 
 def main(argv=None):
+    # MCP and JSON output are UTF-8 even when Windows pipes default to a legacy code page.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8")
     a = parser().parse_args(argv)
     try:
         c = a.command
