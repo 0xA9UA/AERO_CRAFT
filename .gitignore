@@ -1,0 +1,14 @@
+.runtime/
+.cache/
+.dsh/
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+projects/
+reports/local/
+*.egg-info/
+dist/

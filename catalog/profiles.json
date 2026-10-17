@@ -1,0 +1,7 @@
+{
+  "bedrock-stable": {"loader":"bedrock", "minecraft":"1.26.50", "engine_version":[1,26,50], "server_api":"2.10.0", "server_ui_api":"2.2.0", "typescript":"7.0.2", "jdk":null},
+  "fabric-1.21.1": {"loader":"fabric", "minecraft":"1.21.1", "jdk":21, "gradle":"8.14.3", "loom":"1.10.5", "loader_version":"0.16.14", "fabric_api":"0.116.6+1.21.1"},
+  "fabric-26.1": {"loader":"fabric", "minecraft":"26.1", "jdk":25, "gradle":"9.2.1", "loom":"1.15.5", "loader_version":"0.19.5", "fabric_api":"0.145.1+26.1"},
+  "neoforge-1.21.1": {"loader":"neoforge", "minecraft":"1.21.1", "jdk":21, "gradle":"8.14.3", "moddev":"2.0.148", "loader_version":"21.1.259"},
+  "forge-1.20.1": {"loader":"forge", "minecraft":"1.20.1", "jdk":17, "gradle":"8.14.3", "forgegradle":"6.0.54", "loader_version":"47.4.0"}
+}

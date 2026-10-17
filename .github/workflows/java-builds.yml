@@ -1,0 +1,25 @@
+name: Java loader builds
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [fabric-1.21.1, fabric-26.1, neoforge-1.21.1, forge-1.20.1]
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python aero.py setup --profile minimal
+      - run: python aero.py new projects/ci_mod --profile ${{ matrix.profile }} --id ci_mod
+      - run: python aero.py build projects/ci_mod
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.profile }}
+          path: projects/ci_mod/build/libs/*.jar

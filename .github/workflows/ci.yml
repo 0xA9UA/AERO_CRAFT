@@ -1,0 +1,34 @@
+name: Portable suite
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  suite:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit and contract tests
+        run: python -m unittest discover -s tests -v
+      - name: Install pinned agent tools
+        run: python aero.py setup --profile minimal
+      - name: Build Bedrock starter
+        run: |
+          python aero.py new projects/ci_addon --profile bedrock-stable --id ci_addon
+          python aero.py build projects/ci_addon
+      - name: SDK integration and DSH config
+        shell: bash
+        run: |
+          python -c "import subprocess; from aerocraft.toolchains import node; subprocess.run([node(), 'scripts/check_mcp.mjs'], check=True)"
+          python aero.py harness --workspace projects/ci_addon --dump-config > composed-config.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: addon-${{ matrix.os }}
+          path: projects/ci_addon/dist/

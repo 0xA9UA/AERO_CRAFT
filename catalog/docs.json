@@ -1,0 +1,266 @@
+[
+  {
+    "id": "bedrock-manifest",
+    "title": "Bedrock pack manifests",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/reference/content/addonsreference/packmanifest?view=minecraft-bedrock-stable",
+    "version_scope": "Bedrock stable",
+    "summary": "UUIDs, format versions, resource dependencies, script modules, API module versions and minimum engine versions.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-server-api",
+    "title": "Bedrock server API",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/minecraft-server?view=minecraft-bedrock-stable",
+    "version_scope": "@minecraft/server 2.10.0",
+    "summary": "World, System, blocks, entities, players, containers and ItemStack. Use installed declarations for exact pinned signatures.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-world",
+    "title": "World events and persistence",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/world?view=minecraft-bedrock-stable",
+    "version_scope": "@minecraft/server 2.10.0",
+    "summary": "world.afterEvents.worldLoad, getDynamicProperty, setDynamicProperty, getDimension; before-events restrict mutation.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-system",
+    "title": "Tick scheduling",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/system?view=minecraft-bedrock-stable",
+    "version_scope": "@minecraft/server 2.10.0",
+    "summary": "system.run, runInterval, runTimeout, runJob and cancellation; bound per-tick work.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-itemstack",
+    "title": "Items and metadata",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/itemstack?view=minecraft-bedrock-stable",
+    "version_scope": "@minecraft/server 2.10.0",
+    "summary": "ItemStack components, lore, durability, dynamic properties; preserve metadata during inventory moves.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-container",
+    "title": "Container transactions",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/container?view=minecraft-bedrock-stable",
+    "version_scope": "@minecraft/server 2.10.0",
+    "summary": "getItem, setItem, addItem, size and leftovers. Recheck slots before committing changes.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-forms",
+    "title": "Player forms",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server-ui/minecraft-server-ui?view=minecraft-bedrock-stable",
+    "version_scope": "@minecraft/server-ui 2.2.0",
+    "summary": "ActionFormData, ModalFormData, MessageFormData; asynchronous responses, cancellation and stale inventory snapshots.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-scripting-v2",
+    "title": "Scripting version 2 lifecycle",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/documents/scripting/v2-overview?view=minecraft-bedrock-stable",
+    "version_scope": "Script API v2",
+    "summary": "Startup registration versus worldLoad; early execution is not permission to access the loaded world.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-recipes",
+    "title": "Bedrock recipe schemas",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/reference/content/recipereference/?view=minecraft-bedrock-stable",
+    "version_scope": "Bedrock stable",
+    "summary": "Shaped, shapeless and furnace recipes; identifier, crafting station tags, ingredient and result schemas.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-samples",
+    "title": "Official Bedrock samples",
+    "url": "https://github.com/Mojang/bedrock-samples",
+    "version_scope": "Track a selected release",
+    "summary": "Vanilla behavior/resource examples and metadata. Pin a commit before using samples as evidence.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-script-samples",
+    "title": "Official script examples",
+    "url": "https://github.com/microsoft/minecraft-scripting-samples",
+    "version_scope": "Track a selected commit",
+    "summary": "World scripts, forms, sample gameplay and development patterns.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-bds",
+    "title": "Bedrock Dedicated Server",
+    "url": "https://www.minecraft.net/en-us/download/server/bedrock",
+    "version_scope": "Platform-specific runtime",
+    "summary": "Obtain the official Windows or Linux server locally; the suite stages a copy for native load and restart checks.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "fabric-setup",
+    "title": "Fabric setup and Java requirements",
+    "url": "https://docs.fabricmc.net/develop/getting-started/setting-up",
+    "version_scope": "26.1 JDK 25; 1.21.1 JDK 21",
+    "summary": "Loader/MC versions and JDK selection; changing the JVM is separate from porting engine APIs.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "fabric-api",
+    "title": "Fabric API JavaDocs",
+    "url": "https://maven.fabricmc.net/docs/fabric-api-0.116.6+1.21.1/",
+    "version_scope": "Fabric API 0.116.6+1.21.1",
+    "summary": "Events, networking, registries, resource loading, lifecycle, rendering and transfer APIs.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "fabric-loom",
+    "title": "Fabric Loom",
+    "url": "https://docs.fabricmc.net/develop/loom/",
+    "version_scope": "Profile-pinned Loom",
+    "summary": "Minecraft dependencies, mappings, remapping, sources and Gradle run configurations.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "fabric-example",
+    "title": "Official Fabric starter",
+    "url": "https://github.com/FabricMC/fabric-example-mod",
+    "version_scope": "Branches 1.21 and 26.1",
+    "summary": "Reference build structure, initializer and metadata; AERO starters use pinned dependency releases.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "fabric-meta",
+    "title": "Fabric version metadata",
+    "url": "https://meta.fabricmc.net/",
+    "version_scope": "Live metadata; not an install lock",
+    "summary": "Discover Minecraft, loader and mapping versions before deliberately updating a profile.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "neoforge-setup",
+    "title": "NeoForge development setup",
+    "url": "https://docs.neoforged.net/docs/1.21.1/gettingstarted/",
+    "version_scope": "NeoForge 1.21.1 / JDK 21",
+    "summary": "ModDevGradle, mod metadata, source setup, dedicated-server tests and build/libs artifacts.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "neoforge-registries",
+    "title": "NeoForge registries",
+    "url": "https://docs.neoforged.net/docs/1.21.1/concepts/registries",
+    "version_scope": "NeoForge 1.21.1",
+    "summary": "DeferredRegister, registration lifecycle and namespaced identifiers.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "neoforge-mdk",
+    "title": "Official NeoForge MDK",
+    "url": "https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle",
+    "version_scope": "1.21.1",
+    "summary": "Reference for ModDevGradle runs, metadata, data generation and Java toolchains.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "forge-setup",
+    "title": "Forge development setup",
+    "url": "https://docs.minecraftforge.net/en/1.20.1/gettingstarted/",
+    "version_scope": "Forge 1.20.1 / JDK 17",
+    "summary": "ForgeGradle, official mappings, runClient/runServer and reobfuscated release JARs.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "forge-legacy",
+    "title": "Forge 1.12 documentation",
+    "url": "https://docs.minecraftforge.net/en/1.12.x/",
+    "version_scope": "Legacy 1.12 / JDK 8",
+    "summary": "Legacy registries, metadata IDs, TileEntity, capabilities and loader lifecycle; port one subsystem at a time.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "forge-capabilities",
+    "title": "Forge capabilities",
+    "url": "https://docs.minecraftforge.net/en/1.20.1/datastorage/capabilities/",
+    "version_scope": "Forge 1.20.1",
+    "summary": "Inventory, fluid and energy interfaces require explicit target adapters in Bedrock.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "gradle-java",
+    "title": "Gradle Java compatibility",
+    "url": "https://docs.gradle.org/current/userguide/compatibility.html",
+    "version_scope": "Use the pinned profile distribution",
+    "summary": "Distinguish the Gradle runtime JVM from source language, toolchain and target class versions.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "adoptium",
+    "title": "Temurin JDK distributions",
+    "url": "https://adoptium.net/temurin/releases/",
+    "version_scope": "8,17,21,25",
+    "summary": "Official OpenJDK builds. Each JDK includes a runtime; the suite keeps versions separate.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "java-javap",
+    "title": "JVM disassembly with javap",
+    "url": "https://docs.oracle.com/en/java/javase/21/docs/specs/man/javap.html",
+    "version_scope": "Java 21",
+    "summary": "Inspect method descriptors and bytecode; use javap -p -c -s and the appropriate classpath.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "cfr",
+    "title": "CFR Java decompiler",
+    "url": "https://www.benf.org/other/cfr/",
+    "version_scope": "0.152",
+    "summary": "Second decompiler for comparison, legacy Java bytecode and focused reconstruction.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "vineflower",
+    "title": "Vineflower Java decompiler",
+    "url": "https://github.com/Vineflower/vineflower",
+    "version_scope": "1.12.0",
+    "summary": "Primary JVM decompiler; reconstructed source must be corroborated with bytecode and tests.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "rea",
+    "title": "REA tool documentation",
+    "url": "https://github.com/morluto/rea",
+    "version_scope": "6.5.0",
+    "summary": "Evidence-led archives, JavaScript, native analysis and MCP. Provider capabilities vary; JVM decompilation uses the dedicated tools.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "ghidra",
+    "title": "Ghidra native analysis",
+    "url": "https://github.com/NationalSecurityAgency/ghidra",
+    "version_scope": "Optional catalog-pinned release",
+    "summary": "Optional native engine for REA; configure Java and provider path separately from mod compilation.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "deepseek-harness",
+    "title": "DeepSeek Harness requested release",
+    "url": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.1-rc.2",
+    "version_scope": "0.2.1-rc.2",
+    "summary": "Pinned agent runtime. Configure a model in Settings \u2192 Models and select the project workspace.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "deepseek-mcp",
+    "title": "DeepSeek MCP configuration",
+    "url": "https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.1-rc.2/packages/mcp/mcp-client/README.md",
+    "version_scope": "0.2.1-rc.2",
+    "summary": "One Cordis MCP plugin per server, stdio transport, explicit command, args and environment.",
+    "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "blockbench",
+    "title": "Blockbench model tooling",
+    "url": "https://www.blockbench.net/",
+    "version_scope": "Optional external editor",
+    "summary": "Author and inspect Bedrock geometry, Java models, animations and textures; verify face orientation in a client.",
+    "reviewed_on": "2026-10-17"
+  }
+]

@@ -1,0 +1,123 @@
+{
+  "bedrock_build": {
+    "api": "2.10.0",
+    "packaging": "passed",
+    "repeat_package_sha256": "identical",
+    "simulation_tests": "passed",
+    "typecheck": "passed"
+  },
+  "bedrock_native": {
+    "client_rendering_observed": false,
+    "errors": [],
+    "observed_boots": [
+      1,
+      2
+    ],
+    "passed": true,
+    "scope": "Script loading and world dynamic-property persistence across a real server restart. No gameplay equivalence claim.",
+    "server_sha256": "0a490c711d4a2ce075debcd979e8862b7eaba008373f9970f0edbb67f98f9207",
+    "source_packs": {
+      "packs/behavior/manifest.json": "9aea3abf6fa983f83b9910feb408c45c84a45bb6f89aea5fc2450e9700069d97",
+      "packs/behavior/scripts/main.js": "54353243e80a58c5a2f7b99258a9627317bf31a8dd7aa3a8bc8917094b90998c",
+      "packs/behavior/scripts/simulation.js": "b0aa59df4ba571d605e353bd6c6033a8c7bb53ef4c31d2fd46d23e34d3778b15",
+      "packs/resource/manifest.json": "91d694180920145e53b7ea9f5375b16626e4ef2545920e156693378b70cef692"
+    }
+  },
+  "date": "2026-10-17",
+  "decompilers": {
+    "cfr": "passed on generated Fabric JAR",
+    "vineflower": "passed on generated Fabric JAR"
+  },
+  "ghidra": {
+    "native_target_analysis": "not run",
+    "provider_readiness": "passed",
+    "version": "12.1.4"
+  },
+  "harness": {
+    "config_composition": "passed",
+    "live_model_request": "not run; no user provider credentials configured",
+    "local_authenticated_http_status": 200,
+    "version": "0.2.1-rc.2"
+  },
+  "host": "Linux x64 / Debian 13",
+  "java_builds": {
+    "fabric-1.21.1": {
+      "build": "passed",
+      "gameplay_tested": false,
+      "jars": [
+        {
+          "name": "demo_fabric-0.1.0-sources.jar",
+          "sha256": "ed5be361bc0015216d6353dad006246ff94ebcaefe8bd3400bae31a717f966c0"
+        },
+        {
+          "name": "demo_fabric-0.1.0.jar",
+          "sha256": "e938f4e590665c39f257c070807bfb579bb6df624476260a5a3af946aff902e6"
+        }
+      ]
+    },
+    "fabric-26.1": {
+      "build": "passed",
+      "gameplay_tested": false,
+      "jars": [
+        {
+          "name": "demo_modern-0.1.0-sources.jar",
+          "sha256": "96a7ed96babddb2ab53df646026f680df52207aedd134c35391be41f182080bc"
+        },
+        {
+          "name": "demo_modern-0.1.0.jar",
+          "sha256": "0996fda3395e1e68820d229da17c654aa57075f2606996fd8c6c512e086eb4eb"
+        }
+      ]
+    },
+    "forge-1.20.1": {
+      "build": "passed",
+      "gameplay_tested": false,
+      "jars": [
+        {
+          "name": "demo_forge-0.1.0-sources.jar",
+          "sha256": "de904fa8b9d0e90ba66baecd9cde79af629d9eb33202eada9107fb147c6e4d7e"
+        },
+        {
+          "name": "demo_forge-0.1.0.jar",
+          "sha256": "e846ebb4fcc79c01ab7c2dc33f4a4103492894846c786587d49e89a16fc4a44c"
+        }
+      ]
+    },
+    "neoforge-1.21.1": {
+      "build": "passed",
+      "gameplay_tested": false,
+      "jars": [
+        {
+          "name": "demo_neo-0.1.0-sources.jar",
+          "sha256": "3e9ea831a8fd4b69b11bf24eb1a683b4e72399687fbc7e6bfc1911dd62231306"
+        },
+        {
+          "name": "demo_neo-0.1.0.jar",
+          "sha256": "78fce42aa345436969dabc916a0ef43dd8426591381d1bc548c992b72d6972fe"
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Java game clients and dedicated game servers were not launched for loader starters.",
+    "Connected-client visuals/audio/UI and platform-specific gameplay were not tested.",
+    "Windows/macOS CI status is tracked separately in GitHub Actions.",
+    "ARM native execution was not exercised locally."
+  ],
+  "mcp": {
+    "aerocraft_tools_discovered": 10,
+    "rea_tools_discovered": 207,
+    "resources": "passed",
+    "sdk": "@modelcontextprotocol/client 2.2.0 (the DSH dependency)",
+    "tool_calls": "passed"
+  },
+  "port_plans": {
+    "bedrock_to_neoforge": "passed",
+    "java_to_bedrock": "passed"
+  },
+  "python": "3.13.5",
+  "unit_tests": {
+    "failed": 0,
+    "passed": 36
+  }
+}

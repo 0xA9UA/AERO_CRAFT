@@ -1,0 +1,25 @@
+{
+  "name": "aero-craft",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Minecraft development and porting suite powered by DeepSeek Harness",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.11.0 <25"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh": "0.2.1-rc.2",
+    "rea-agents": "6.5.0",
+    "@minecraft/server": "2.10.0",
+    "@minecraft/server-ui": "2.2.0",
+    "typescript": "7.0.2"
+  },
+  "allowScripts": {
+    "@deepseek-ai/dsh-subprocess-local@0.2.1-rc.2": true,
+    "node-pty@1.2.0-beta.15": true,
+    "koffi@3.1.1": true,
+    "frida@17.23.2": true,
+    "protobufjs@7.6.6": true,
+    "@google/genai": false
+  }
+}
