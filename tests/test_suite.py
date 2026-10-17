@@ -65,7 +65,7 @@ class SuiteTests(unittest.TestCase):
         self.assertIn("bedrock", info["loaders"])
 
     def test_zip_traversal_rejected(self):
-        for name in ["../escape", "/escape", "C:/escape", "foo\\escape"]:
+        for name in ["../escape", "/escape", "C:/escape", "..\\escape"]:
             with self.subTest(name=name):
                 a = self.archive(entries={name: "bad"})
                 with self.assertRaises(CraftError):
