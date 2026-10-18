@@ -317,7 +317,11 @@ def build(path):
         checks = build_checks(path, path / ".aero/build")
         if not all(c["passed"] for c in checks.values()):
             write_json(path / ".aero/build/report.json", checks)
-            raise CraftError("API/unit checks failed. Inspect .aero/build/typecheck.log and unit.xml; do not suppress failures.")
+            details = "\n".join(
+                f"{name}: {check.get('error') or check.get('tail', '')[-2400:]}"
+                for name, check in checks.items() if not check["passed"]
+            )
+            raise CraftError("API/unit checks failed. Inspect .aero/build/typecheck.log and unit.xml; do not suppress failures.\n" + details)
         result = package(path)
         result["checks"] = checks
         result["release_ready"] = False

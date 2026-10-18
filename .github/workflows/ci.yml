@@ -20,6 +20,7 @@ jobs:
       - name: Install pinned agent tools
         run: python aero.py setup --profile minimal
       - name: Build Bedrock starter
+        shell: bash
         run: |
           python aero.py new projects/ci_addon --profile bedrock-stable --id ci_addon
           python aero.py build projects/ci_addon
