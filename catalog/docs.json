@@ -262,5 +262,45 @@
     "version_scope": "Optional external editor",
     "summary": "Author and inspect Bedrock geometry, Java models, animations and textures; verify face orientation in a client.",
     "reviewed_on": "2026-10-17"
+  },
+  {
+    "id": "bedrock-custom-components",
+    "title": "Custom component lifecycle",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/documents/scripting/custom-components?view=minecraft-bedrock-stable",
+    "version_scope": "Bedrock stable; verify against project pins",
+    "summary": "Startup event registries, custom block components and event callbacks.",
+    "reviewed_on": "2026-10-18"
+  },
+  {
+    "id": "bedrock-block-registry",
+    "title": "Block component registry",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/blockcomponentregistry?view=minecraft-bedrock-stable",
+    "version_scope": "Bedrock stable; verify against project pins",
+    "summary": "registerCustomComponent on the startup event registry; not world.blockComponentRegistry.",
+    "reviewed_on": "2026-10-18"
+  },
+  {
+    "id": "bedrock-block-entity",
+    "title": "Block entity authoring component",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_block_entity?view=minecraft-bedrock-stable",
+    "version_scope": "Bedrock stable; verify against project pins",
+    "summary": "Authoring containers and dynamic properties differs from the script API component interface.",
+    "reviewed_on": "2026-10-18"
+  },
+  {
+    "id": "bedrock-material-instances",
+    "title": "Block material instances",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_material_instances?view=minecraft-bedrock-stable",
+    "version_scope": "Bedrock stable; verify against project pins",
+    "summary": "Texture keys, render methods and material settings.",
+    "reviewed_on": "2026-10-18"
+  },
+  {
+    "id": "bedrock-recipe-unlock",
+    "title": "Recipe introduction and unlock metadata",
+    "url": "https://learn.microsoft.com/en-us/minecraft/creator/documents/recipeintroduction?view=minecraft-bedrock-stable",
+    "version_scope": "Bedrock stable; verify against project pins",
+    "summary": "Recipe stations, shapes and required unlock metadata for modern crafting recipes.",
+    "reviewed_on": "2026-10-18"
   }
 ]

@@ -23,6 +23,8 @@ jobs:
         run: |
           python aero.py new projects/ci_addon --profile bedrock-stable --id ci_addon
           python aero.py build projects/ci_addon
+          python aero.py industrial-example projects/ci_industrial --id ci_industrial
+          python aero.py build projects/ci_industrial
       - name: SDK integration and DSH config
         shell: bash
         run: |

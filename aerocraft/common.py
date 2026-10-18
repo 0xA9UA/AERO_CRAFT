@@ -9,6 +9,7 @@ import re
 import shutil
 import stat
 import subprocess
+import sys
 import tarfile
 import tempfile
 import urllib.request
@@ -25,6 +26,7 @@ IGNORED = {
     ".runtime",
     ".cache",
     ".dsh",
+    ".aero",
     "node_modules",
     ".gradle",
     "build",
@@ -194,9 +196,10 @@ def files(root):
                 yield p
 
 
-def run(command, cwd=None, env=None, timeout=1800):
+def run(command, cwd=None, env=None, timeout=1800, output=None):
     result = subprocess.run(
-        [str(x) for x in command], cwd=cwd, env=env, timeout=timeout
+        [str(x) for x in command], cwd=cwd, env=env, timeout=timeout,
+        stdout=sys.stderr if output is None else output, stderr=sys.stderr,
     )
     if result.returncode:
         raise CraftError(

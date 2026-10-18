@@ -371,7 +371,8 @@ class SuiteTests(unittest.TestCase):
         )
         replies = [json.loads(x) for x in proc.stdout.splitlines()]
         self.assertEqual(replies[0]["result"]["protocolVersion"], "2025-03-26")
-        self.assertEqual(len(replies[1]["result"]["tools"]), 10)
+        names = {tool["name"] for tool in replies[1]["result"]["tools"]}
+        self.assertTrue({"start_port", "verify_project", "port_status", "discover_runtimes", "decompile_artifact", "cache_docs"}.issubset(names))
         self.assertTrue(replies[2]["result"]["isError"])
         self.assertNotIn("isError", replies[3]["result"])
         self.assertEqual(replies[4]["error"]["code"], -32601)

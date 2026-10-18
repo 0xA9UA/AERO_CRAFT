@@ -1,0 +1,17 @@
+{
+  "resource_pack_name": "AERO Industrial Reference",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "__MOD_ID__:generator": {
+      "textures": "textures/blocks/generator"
+    },
+    "__MOD_ID__:cable": {
+      "textures": "textures/blocks/cable"
+    },
+    "__MOD_ID__:electric_furnace": {
+      "textures": "textures/blocks/electric_furnace"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 """Versioned source index, offline guides and installed Bedrock API declarations."""
 
 from __future__ import annotations
+from datetime import datetime, timezone
 import hashlib
 from pathlib import Path
 import re
@@ -63,6 +64,8 @@ def cache(identifier):
         row["url"], headers={"User-Agent": "AERO-CRAFT/0.1"}
     )
     with urllib.request.urlopen(request, timeout=30) as response:
+        if not response.url.startswith("https://"):
+            raise CraftError("Documentation redirected away from HTTPS.")
         data = response.read(4 * 1024**2 + 1)
         if len(data) > 4 * 1024**2:
             raise CraftError("Documentation exceeds the 4 MiB cache limit.")
@@ -70,6 +73,7 @@ def cache(identifier):
     path = RUNTIME / "docs" / (identifier + ".txt")
     atomic_write(path, data.decode("utf-8", errors="replace"))
     receipt = {
+        "retrieved_at": datetime.now(timezone.utc).isoformat(),
         "source": row["url"],
         "final_url": final,
         "sha256": hashlib.sha256(data).hexdigest(),

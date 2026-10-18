@@ -128,12 +128,22 @@ def validate(path):
                     read_json(p)
                 except (ValueError, UnicodeError) as e:
                     errors.append(f"{p.relative_to(path)}: invalid JSON: {e}")
+    from .bedrock_checks import validate_content
+    config_path = path / "aero-project.json"
+    try:
+        config = read_json(config_path) if config_path.is_file() else None
+    except (ValueError, OSError):
+        config = None
+    content = validate_content(path, [m.parent for m, _ in packs], config)
+    errors.extend(content["errors"])
+    warnings.extend(content["warnings"])
     return {
         "passed": not errors,
         "errors": errors,
         "warnings": warnings,
         "pack_count": len(packs),
-        "scope": "Structure, manifest references and JSON syntax. Engine schemas, API execution and client rendering require native tests.",
+        "checks": content["checks"],
+        "scope": content["scope"],
     }
 
 
