@@ -321,7 +321,7 @@ class DirectBuildChecksTests(unittest.TestCase):
         forced = read_json(self.output / "tsconfig.json")
         self.assertIs(forced["compilerOptions"]["checkJs"], True)
         self.assertIs(forced["compilerOptions"]["strict"], True)
-        self.assertIn(str(self.project / "packs/**/*.js"), forced["include"])
+        self.assertIn((self.project / "packs/**/*.js").as_posix(), forced["include"])
         self.compiler.write_text("process.exit(9);\n", encoding="utf-8")
         self.assertFalse(self.checks()["api"]["passed"])
 

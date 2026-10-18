@@ -238,10 +238,11 @@ def build_checks(project, output):
         if read_json(project / "node_modules" / name / "package.json")["version"] != expected:
             raise CraftError(f"Installed {name} does not match aero-project.json.")
     type_config = output / "tsconfig.json"
+    # TypeScript globs need forward slashes even on Windows.
     write_json(type_config, {"compilerOptions": {"target": "ES2022", "module": "ESNext",
                "moduleResolution": "Bundler", "strict": True, "allowJs": True, "checkJs": True,
                "noEmit": True, "skipLibCheck": True},
-               "include": [str(project / "packs/**/*.js")]})
+               "include": [(project / "packs/**/*.js").as_posix()]})
     api, _ = _run([toolchains.node(), project / "node_modules/typescript/bin/tsc",
                    "--project", type_config], project, output / "typecheck.log")
     test_files = sorted(p for p in (project / "tests").rglob("*")
