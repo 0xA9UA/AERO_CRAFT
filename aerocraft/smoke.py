@@ -53,7 +53,7 @@ def _copy_runtime(server, stage):
                 ignored.append(name)
             elif (directory / name).is_symlink():
                 raise CraftError(f"Native runtime contains a symlink; use a fully extracted runtime: {rel}")
-        excluded.extend(str((directory / name).relative_to(server)) for name in ignored)
+        excluded.extend((directory / name).relative_to(server).as_posix() for name in ignored)
         return ignored
 
     shutil.copytree(server, stage, ignore=ignore)

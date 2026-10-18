@@ -21,7 +21,7 @@ from aerocraft.common import ROOT, CraftError, read_json, sha256, write_json
 class VerificationGateTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
-        self.root = Path(self.temporary.name)
+        self.root = Path(self.temporary.name).resolve()
         self.source = self.root / "synthetic-source.jar"
         with zipfile.ZipFile(self.source, "w") as archive:
             archive.writestr("example/Mod.class", b"\xca\xfe\xba\xbe" + struct.pack(">HH", 0, 61))
@@ -266,7 +266,7 @@ class VerificationGateTests(unittest.TestCase):
 class DirectBuildChecksTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
-        self.root = Path(self.temporary.name)
+        self.root = Path(self.temporary.name).resolve()
         managed_node = ROOT / ".runtime/tools/node/bin/node"
         self.node = str(managed_node) if managed_node.is_file() else shutil.which("node")
         if not self.node:

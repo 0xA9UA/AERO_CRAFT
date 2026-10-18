@@ -17,7 +17,7 @@ from aerocraft.common import ROOT, CraftError
 class HarnessTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
-        self.root = Path(self.temporary.name)
+        self.root = Path(self.temporary.name).resolve()
 
     def tearDown(self):
         self.temporary.cleanup()

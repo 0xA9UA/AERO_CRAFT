@@ -15,7 +15,7 @@ from aerocraft.common import CraftError, read_json, sha256, write_json
 class RuntimeTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
-        self.root = Path(self.tmp.name)
+        self.root = Path(self.tmp.name).resolve()
         self.home = self.root / 'state'
         self.mock_home = patch.object(runtimes, 'RUNTIME', self.home)
         self.mock_home.start()
