@@ -1,0 +1,327 @@
+{
+  "checked_on": "2026-10-18",
+  "platform": "Linux x64",
+  "unit_tests": {
+    "passed": 105
+  },
+  "mcp": {
+    "aerocraft_tools": 19,
+    "rea_tools": 207,
+    "integration_passed": true
+  },
+  "official_target": {
+    "checked_at": "2026-10-18T10:22:29.144635+00:00",
+    "bedrock_server_version": "1.26.52.3",
+    "sample_version": "1.26.50.4",
+    "server_api": "2.10.0",
+    "server_ui_api": "2.2.0",
+    "profile_matches_latest": true,
+    "sources": {
+      "downloads": {
+        "url": "https://net-secondary.web.minecraft-services.net/api/v1.0/download/links",
+        "final_url": "https://net-secondary.web.minecraft-services.net/api/v1.0/download/links",
+        "sha256": "4b0a1651e0bc0cace1e2c16cc46fb4e7d1784cfb8cd9e97893ac11c669d081bd"
+      },
+      "samples": {
+        "url": "https://raw.githubusercontent.com/Mojang/bedrock-samples/main/version.json",
+        "final_url": "https://raw.githubusercontent.com/Mojang/bedrock-samples/main/version.json",
+        "sha256": "87d10cc94dad2eb95aba526812739a4136b2be46efc5b6bf0ee2aef4bedb2d13"
+      },
+      "server_api": {
+        "url": "https://registry.npmjs.org/@minecraft/server/latest",
+        "final_url": "https://registry.npmjs.org/@minecraft/server/latest",
+        "sha256": "649cd23bec3a4e3afeed2c7b6a53d5d2320cbe190234eda8aba18a1cd5203aae"
+      },
+      "server_ui_api": {
+        "url": "https://registry.npmjs.org/@minecraft/server-ui/latest",
+        "final_url": "https://registry.npmjs.org/@minecraft/server-ui/latest",
+        "sha256": "6057e8299efe776f06379f4f12d76257cb0853813f2a282be86ed73bd6a0bfd0"
+      }
+    }
+  },
+  "broken_addon": {
+    "static_rejected": true,
+    "diagnostics": 198,
+    "finding_counts": {
+      "error:api-suppression": 1,
+      "error:block-api-component": 152,
+      "error:block-loot": 184,
+      "error:content-location": 1367,
+      "error:custom-components": 107,
+      "error:identifier": 97,
+      "error:java-schema": 85,
+      "error:map-color": 184,
+      "error:recipe-count": 114,
+      "error:recipe-key": 623,
+      "error:recipe-result": 463,
+      "error:recipe-tag": 473,
+      "error:recipe-unlock": 463,
+      "error:registry-api": 2,
+      "error:render-method": 428,
+      "error:texture-reference": 904,
+      "error:unknown-reference": 72,
+      "warning:unreviewed-component": 35
+    }
+  },
+  "native_large_fixture": {
+    "passed": true,
+    "server_version": "1.26.52.3",
+    "boots": [
+      1,
+      2
+    ],
+    "declared_blocks": 151,
+    "declared_items": 151
+  },
+  "industrial_reference": {
+    "passed": true,
+    "verification_layers": {
+      "api": true,
+      "build": true,
+      "native": true,
+      "static": true,
+      "unit": true
+    },
+    "unit_tests": [
+      "stale form cannot collect from a replacement machine",
+      "moving beyond reach invalidates a pending form",
+      "changing dimension invalidates a pending form",
+      "disconnected player cannot use a pending form",
+      "valid nearby form collects exactly the available fuel",
+      "full player inventory preserves machine contents",
+      "registered onBreak recovers inventory once and clears saved state",
+      "generator cable furnace consumes one raw iron and produces one ingot",
+      "energy is conserved through branched cables and duplicate cyclic links",
+      "full output preserves input progress and energy",
+      "no energy pauses progress and resumes without losing input",
+      "disconnected furnace receives no energy",
+      "full generator pauses burning instead of consuming fuel without capacity",
+      "invalid persisted values and graph edges fail visibly"
+    ],
+    "server_version": "1.26.52.3",
+    "boots": [
+      1,
+      2
+    ],
+    "content_errors": [],
+    "assertions": [
+      {
+        "name": "generator accepts one coal unit",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "furnace accepts two raw iron units",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native generator cable furnace produces two ingots",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native fuel and recipe energy accounting",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native disconnected furnace pauses without loss",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native immovable component final_reference:generator",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native immovable component final_reference:cable",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native immovable component final_reference:electric_furnace",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native piston control pushes ordinary stone",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native powered piston cannot move machine or lose its input",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native destroy command drops machine input exactly once",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native destroyed machine cannot recover a duplicate saved input",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native explosion destroys the test machine",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native explosion drops machine input exactly once",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native restart expectation was persisted",
+        "passed": true,
+        "boot": 2
+      },
+      {
+        "name": "native placed industrial network survives restart",
+        "passed": true,
+        "boot": 2
+      },
+      {
+        "name": "native generator energy and fuel persist across restart",
+        "passed": true,
+        "boot": 2
+      },
+      {
+        "name": "native furnace outputs and progress persist across restart",
+        "passed": true,
+        "boot": 2
+      },
+      {
+        "name": "native paused machine input persists across restart",
+        "passed": true,
+        "boot": 2
+      },
+      {
+        "name": "native destroy command drops finished outputs exactly once",
+        "passed": true,
+        "boot": 2
+      }
+    ],
+    "artifact": {
+      "path": "dist/final_reference-0.1.0.mcaddon",
+      "sha256": "c8a5844bf8944e9cc1d0bb74b0c62f86a11dc3a708e70fde7b7cb2ae5c128282"
+    },
+    "converted_recipe_loaded": true,
+    "candidate_ready": true
+  },
+  "boundaries": [
+    "Android device was not connected; rendering and touch interactions are unobserved.",
+    "Full TechReborn parity was not established by these suite and example checks.",
+    "Workflow receipts are quality controls, not a security boundary against an agent rewriting evidence."
+  ],
+  "autonomous_repair": {
+    "scope": "Autonomous repair of a deliberately damaged industrial reference fixture. No full Tech Reborn port or connected-client claim.",
+    "passed": true,
+    "provider": "iris",
+    "model": "qwen38-turbofc-q8",
+    "mode": "PTC",
+    "wall_seconds": 558.705,
+    "baseline": {
+      "mutations": [
+        "Move all behavior blocks under Java data/industrial_ref/blocks",
+        "Mismatch the registered custom component name",
+        "Suppress a nonexistent beforeEvents.playerPlaceBlock API with @ts-ignore"
+      ],
+      "static_error_count": 4,
+      "static_passed": false
+    },
+    "no_human_repairs_after_launch": true,
+    "tests_unchanged": true,
+    "settings_changed": false,
+    "verification_layers": {
+      "api": true,
+      "build": true,
+      "native": true,
+      "static": true,
+      "unit": true
+    },
+    "unit_tests": [
+      "generator cable furnace consumes one raw iron and produces one ingot",
+      "energy is conserved through branched cables and duplicate cyclic links",
+      "full output preserves input progress and energy",
+      "no energy pauses progress and resumes without losing input",
+      "disconnected furnace receives no energy",
+      "full generator pauses burning instead of consuming fuel without capacity",
+      "invalid persisted values and graph edges fail visibly"
+    ],
+    "native_server_version": "1.26.52.3",
+    "native_boots": [
+      1,
+      2
+    ],
+    "native_errors": [],
+    "artifact": {
+      "path": "dist/industrial_ref-0.1.0.mcaddon",
+      "sha256": "675bcb0e76191a8e4970ceacb78f5937581add0598a09298198eebaa1c2d1508"
+    },
+    "client_rendering_observed": false,
+    "player_interaction_observed": false,
+    "review_notes": [
+      "The model also normalized getBlock(entry) to getBlock({x,y,z}). The existing structurally typed argument was already valid; this change is equivalent, not an additional diagnosed defect.",
+      "A passing native scenario proves the named tested mechanics only. Client interaction/rendering and full-mod parity remain unobserved."
+    ],
+    "native_assertions": [
+      {
+        "name": "generator accepts one coal unit",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "furnace accepts two raw iron units",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native generator cable furnace produces two ingots",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native fuel and recipe energy accounting",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native disconnected furnace pauses without loss",
+        "passed": true,
+        "boot": 1
+      },
+      {
+        "name": "native restart expectation was persisted",
+        "passed": true,
+        "boot": 2
+      },
+      {
+        "name": "native placed industrial network survives restart",
+        "passed": true,
+        "boot": 2
+      },
+      {
+        "name": "native generator energy and fuel persist across restart",
+        "passed": true,
+        "boot": 2
+      },
+      {
+        "name": "native furnace outputs and progress persist across restart",
+        "passed": true,
+        "boot": 2
+      },
+      {
+        "name": "native paused machine input persists across restart",
+        "passed": true,
+        "boot": 2
+      }
+    ],
+    "candidate_ready": true,
+    "release_ready": false
+  }
+}

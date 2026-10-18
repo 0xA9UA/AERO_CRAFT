@@ -39,11 +39,11 @@ def create(path, profile, mod_id, name=None, package="dev.aerocraft"):
     write_json(path / "aero-project.json", config)
     atomic_write(
         path / ".gitignore",
-        "build/\ndist/\n.gradle/\nnode_modules/\nrun/\nruns/\n.env\n",
+        "build/\ndist/\n.gradle/\nnode_modules/\nrun/\nruns/\n.env\n.aero/\n",
     )
     atomic_write(
         path / "AGENTS.md",
-        "# Minecraft project\n\nRead aero-project.json for exact engine, loader, API and JDK versions. Keep simulation logic independent from engine adapters. Consult the AERO_CRAFT MCP docs tools and workflow resources. Implement focused regression tests for behavior changes. Preserve world save formats and Bedrock header UUIDs. Track evidence and adaptations in PARITY.md. A compiled package is not proof of in-game parity.\n",
+        "# Minecraft project\n\nRead aero-project.json for exact engine, loader, API and JDK versions. Read AERO_CRAFT guide:workflows/autonomous-porting.md with read_docs before a port. Use start_port to bind the source and acceptance contract; port_status returns the current blockers. Implement and test one generator → cable → machine slice before expanding the content catalog.\n\nKeep simulation logic independent from engine adapters. Consult search_bedrock_api for exact installed declarations. Never silence API failures with @ts-ignore, @ts-nocheck, unchecked any casts or reduced compiler coverage. Preserve world save formats and Bedrock header UUIDs. Put Bedrock blocks/items/recipes/features at the behavior pack root, never Java data/<namespace> directories.\n\nFor each required feature, record real source archive members, target files, named unit tests and native scenario assertions in aero-port.json. Do not replace missing mechanics with stubs or lower the requested scope. Build/package success is not completion. Run verify_project, fix failures, then check port_status. Native startup and boot counters do not prove machine behavior or Android rendering/touch interactions. Do not present an addon as finished or mark the goal complete until the release gate is ready. Report unobserved client checks accurately.\n",
     )
     atomic_write(
         path / "PARITY.md",
@@ -308,12 +308,25 @@ def build(path):
     path = Path(path).resolve()
     c = read_json(path / "aero-project.json")
     if c["loader"] == "bedrock":
-        toolchains.npm(["ci", "--no-audit", "--no-fund"], path)
-        toolchains.npm(["run", "typecheck"], path)
-        toolchains.npm(["test"], path)
-        from .bedrock import package
+        from .bedrock import package, validate
+        from .verification import build_checks
 
-        return package(path)
+        static = validate(path)
+        if not static["passed"]:
+            raise CraftError("Content validation failed: " + "; ".join(static["errors"][:20]))
+        checks = build_checks(path, path / ".aero/build")
+        if not all(c["passed"] for c in checks.values()):
+            write_json(path / ".aero/build/report.json", checks)
+            details = "\n".join(
+                f"{name}: {check.get('error') or check.get('tail', '')[-2400:]}"
+                for name, check in checks.items() if not check["passed"]
+            )
+            raise CraftError("API/unit checks failed. Inspect .aero/build/typecheck.log and unit.xml; do not suppress failures.\n" + details)
+        result = package(path)
+        result["checks"] = checks
+        result["release_ready"] = False
+        result["next"] = "Run verify_project for native content/gameplay/restart evidence, then port_status."
+        return result
     gradle(path, ["build"])
     artifacts = sorted(str(p) for p in (path / "build/libs").glob("*.jar"))
     if not artifacts:

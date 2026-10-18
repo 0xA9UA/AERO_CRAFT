@@ -37,7 +37,7 @@ python3 aero.py tools install ghidra    # optional native reverse engineering
 | Agent harness | Requested DSH release; Web UI; isolated config; AERO_CRAFT and REA MCP bridges |
 | Java | Temurin JDK 8/17/21/25, including JVM runtimes and `javac`, `javap`, `jar`, `jcmd`; pinned Gradle |
 | Mod loaders | Buildable Fabric, NeoForge and Forge starters; existing-project inspection and upgrade assessment |
-| Bedrock | Stable API declarations, JS typechecking, unit-test starter, manifest checks and deterministic `.mcaddon` packaging |
+| Bedrock | Mandatory API checks, content/reference validation, industrial reference example, unit/native gameplay scenarios and deterministic `.mcaddon` packaging |
 | Reverse engineering | REA CLI/MCP, CFR, Vineflower, member hashes, class-version inspection, archive diffs and safe extraction; optional Ghidra |
 | Ports | Source inventories, feature/parity ledgers, Java ↔ Bedrock workflows and conservative crafting-recipe conversion |
 | Documentation | Searchable primary-source index, offline workflow/API guides, installed declaration search and optional local page cache |
@@ -74,7 +74,30 @@ python3 aero.py validate projects/my_addon
 python3 aero.py smoke projects/my_addon --server /path/to/official/bedrock-server --output .runtime/native-check
 ```
 
-The native runner stages a private copy and checks script persistence through an actual stop/start. Minecraft/BDS runtimes are not redistributed. A headless pass does not verify client visuals or every mechanic.
+The native runner stages a private copy, verifies declared blocks/items in the real engine, runs project-specific assertions, and checks persistence through an actual stop/start. Minecraft/BDS runtimes are not redistributed. A headless pass does not verify Android visuals or touch interaction.
+
+Start a tracked Java-to-Bedrock port and verify it:
+
+```sh
+python3 aero.py start-port /path/to/mod.jar --project projects/my_port --id my_port --latest
+python3 aero.py resolve-target projects/my_port
+python3 aero.py runtimes list
+# Register a separately obtained official runtime if discovery found none:
+python3 aero.py runtimes register /path/to/bedrock-server --version 1.26.52.3
+python3 aero.py verify projects/my_port
+python3 aero.py port-status projects/my_port
+```
+
+The contract in `aero-port.json` tracks required features and source/test evidence. `verify` reports executed technical checks; `port-status` reports release readiness, including required client evidence. The current stable runtime may differ from the example version above; use `resolve-target`. See [the autonomous port workflow](docs/workflows/autonomous-porting.md) and [the TechReborn first-run review](docs/reviews/techreborn-first-run.md).
+
+For a small original working reference:
+
+```sh
+python3 aero.py industrial-example projects/industrial_reference --id industrial_reference
+python3 aero.py verify projects/industrial_reference
+```
+
+This example supplies a coal generator, cable network, electric furnace, textures, forms, mechanics tests and a native restart scenario. It is not a Tech Reborn port. Restart the harness after updating the suite so new tools, instructions and policy load; existing provider settings and sessions are preserved.
 
 Search APIs and translate supported recipes:
 
@@ -85,11 +108,11 @@ python3 aero.py docs read guide:workflows/porting.md
 python3 aero.py recipe examples/java-recipe.json --direction java-to-bedrock --id example:wire --mapping examples/item-map.json --output .runtime/wire.json
 ```
 
-Recipe conversion supports plain shaped/shapeless crafting. Unsupported tags, metadata, components, custom conditions or recipe types fail with a reason. Read [the porting workflow](docs/workflows/porting.md) before treating converted data as equivalent behavior.
+Recipe conversion supports plain shaped/shapeless crafting, with explicit always-unlocked Bedrock recipe-book metadata. Source advancement/unlock progression needs separate reconstruction. Unsupported tags, metadata, components, custom conditions or recipe types fail with a reason. Read [the porting workflow](docs/workflows/porting.md) before treating converted data as equivalent behavior.
 
 ## Use with agents
 
-The harness registers ten AERO_CRAFT tools plus the pinned REA server. AERO_CRAFT exposes documentation as MCP resources and injects a short workflow pointer. Agents can inspect projects, inspect/diff artifacts, find exact API declarations, validate packs, create starters and write port plans. Builds and decompilation run through the CLI using the harness's normal command tools. Existing DSH permission controls remain active.
+The harness registers AERO_CRAFT tools plus the pinned REA server and its instruction bundle. Agents can start tracked ports, resolve current stable targets, fetch official documentation without a model-specific search key, inspect/decompile artifacts, create an industrial reference, build, discover BDS and verify gameplay. Durable acceptance state survives compaction. A DSH plugin checks current verification before completing port goals or presenting addons; clearly labelled test candidates remain available for client testing. Existing DSH permission controls remain active. These workflow checks are not a security boundary or a guarantee of full mod equivalence.
 
 Example task:
 

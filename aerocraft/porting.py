@@ -156,7 +156,8 @@ def convert_recipe(data, direction, identifier, mapping=None):
             raise CraftError(
                 "Only shaped/shapeless crafting is supported; cooking XP/times and custom serializers need review."
             )
-        body = {"description": {"identifier": identifier}, "tags": ["crafting_table"]}
+        body = {"description": {"identifier": identifier}, "tags": ["crafting_table"],
+                "unlock": {"context": "AlwaysUnlocked"}}
         if kind == "crafting_shaped":
             body.update(
                 pattern=data.get("pattern"),
@@ -186,9 +187,10 @@ def convert_recipe(data, direction, identifier, mapping=None):
         raise CraftError("Bedrock recipe body must be an object.")
     if (
         set(body)
-        - {"description", "tags", "pattern", "key", "ingredients", "result", "priority"}
+        - {"description", "tags", "pattern", "key", "ingredients", "result", "priority", "unlock"}
         or body.get("priority", 0) != 0
         or body.get("tags") != ["crafting_table"]
+        or ("unlock" in body and body["unlock"] != {"context": "AlwaysUnlocked"})
     ):
         raise CraftError(
             "Unsupported recipe station/priority/fields; refusing a lossy conversion."

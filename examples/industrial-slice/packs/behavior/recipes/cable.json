@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "__MOD_ID__:craft_cable"
+    },
+    "unlock": [{"item": "minecraft:copper_ingot"}],
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CCC",
+      "RRR"
+    ],
+    "key": {
+      "C": {
+        "item": "minecraft:copper_ingot"
+      },
+      "R": {
+        "item": "minecraft:redstone"
+      }
+    },
+    "result": {
+      "item": "__MOD_ID__:cable",
+      "count": 6
+    }
+  }
+}

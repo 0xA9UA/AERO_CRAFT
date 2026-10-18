@@ -201,6 +201,7 @@ def setup(profile="standard"):
 
 
 def doctor():
+    from .runtimes import discover_bedrock
     rows = []
     for name in catalog():
         try:
@@ -230,6 +231,7 @@ def doctor():
         "runtime": str(RUNTIME),
         "tools": rows,
         "npm": npm_modules,
+        "bedrock_runtimes": discover_bedrock(),
     }
 
 

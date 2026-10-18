@@ -43,6 +43,9 @@ def parser():
     q.add_argument("--id", required=True)
     q.add_argument("--name")
     q.add_argument("--package", default="dev.aerocraft")
+    q = sub.add_parser("industrial-example", help="Create a runnable generator/cable/furnace reference in a new directory")
+    q.add_argument("path")
+    q.add_argument("--id", required=True)
     q = sub.add_parser(
         "build", help="Build a project; Bedrock also typechecks, tests and packages"
     )
@@ -87,13 +90,37 @@ def parser():
     q.add_argument("--output", required=True)
     q = sub.add_parser("validate")
     q.add_argument("path")
+    q = sub.add_parser("start-port", help="Create/adopt a Bedrock port with a durable acceptance contract")
+    q.add_argument("source")
+    q.add_argument("--project", required=True)
+    q.add_argument("--id", required=True)
+    q.add_argument("--profile", default="bedrock-stable")
+    q.add_argument("--client-platform", default="android")
+    q.add_argument("--latest", action="store_true")
+    q = sub.add_parser("resolve-target", help="Resolve current official stable Bedrock runtime/content/API metadata")
+    q.add_argument("path")
+    q = sub.add_parser("verify", help="Run content, API, real tests, build and native gameplay/restart checks")
+    q.add_argument("path")
+    q.add_argument("--server")
+    q.add_argument("--timeout", type=int, default=120)
+    for name in ("gate", "port-status"):
+        q = sub.add_parser(name, help="Read exact-input release readiness and remaining blockers")
+        q.add_argument("path")
+        q.add_argument("--json", action="store_true", help="JSON is the default output")
+    q = sub.add_parser("runtimes", help="Locate or register a separately obtained official Bedrock server")
+    s = q.add_subparsers(dest="action", required=True)
+    s.add_parser("list")
+    q = s.add_parser("register")
+    q.add_argument("path")
+    q.add_argument("--name", default="default")
+    q.add_argument("--version")
     q = sub.add_parser("package")
     q.add_argument("path")
     q = sub.add_parser(
         "smoke", help="Stage a supplied BDS runtime and test script persistence"
     )
     q.add_argument("path")
-    q.add_argument("--server", required=True)
+    q.add_argument("--server", help="Optional when an official server is registered or discovered in the suite runtime")
     q.add_argument("--output", required=True)
     q.add_argument("--timeout", type=int, default=120)
     q = sub.add_parser("docs")
@@ -140,6 +167,9 @@ def main(argv=None):
             )
         elif c == "new":
             result = projects.create(a.path, a.profile, a.id, a.name, a.package)
+        elif c == "industrial-example":
+            from .industrial import create
+            result = create(a.path, a.id)
         elif c == "build":
             result = projects.build(a.path)
         elif c == "gradle":
@@ -172,6 +202,18 @@ def main(argv=None):
             write_json(a.output, result)
         elif c == "validate":
             result = bedrock.validate(a.path)
+        elif c == "start-port":
+            from .verification import start_port
+            result = start_port(a.source, a.project, a.id, a.profile, a.client_platform, a.latest)
+        elif c == "verify":
+            from .verification import verify
+            result = verify(a.path, a.server, a.timeout)
+        elif c in {"gate", "port-status"}:
+            from .verification import gate, status
+            result = (gate if c == "gate" else status)(a.path)
+        elif c == "runtimes":
+            from .runtimes import discover_bedrock, register_bedrock
+            result = discover_bedrock() if a.action == "list" else register_bedrock(a.path, a.name, a.version)
         elif c == "package":
             result = bedrock.package(a.path)
         elif c == "smoke":
@@ -185,6 +227,9 @@ def main(argv=None):
                 "cache": lambda: docs.cache(a.id),
                 "api": lambda: docs.api_search(a.query),
             }[a.action]()
+        elif c == "resolve-target":
+            from .targets import resolve_bedrock
+            result = resolve_bedrock(a.path)
         elif c == "harness":
             return harness.launch(a.workspace, a.port, a.no_open, a.dump_config)
         elif c == "rea":
@@ -195,6 +240,7 @@ def main(argv=None):
                     *(a.args[1:] if a.args[:1] == ["--"] else a.args),
                 ],
                 env=toolchains.rea_environment(),
+                output=sys.stdout,
             )
         elif c == "mcp":
             from .mcp import serve

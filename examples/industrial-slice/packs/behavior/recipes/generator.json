@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "__MOD_ID__:craft_generator"
+    },
+    "unlock": [{"item": "minecraft:iron_ingot"}],
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "III",
+      "IFI",
+      "IRI"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "F": {
+        "item": "minecraft:furnace"
+      },
+      "R": {
+        "item": "minecraft:redstone"
+      }
+    },
+    "result": {
+      "item": "__MOD_ID__:generator",
+      "count": 1
+    }
+  }
+}
