@@ -3,8 +3,10 @@ import assert from 'node:assert/strict';
 import { Client } from '@modelcontextprotocol/client';
 import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
 import { resolve } from 'node:path';
+import { readFile } from 'node:fs/promises';
 
 const root = resolve(import.meta.dirname, '..');
+const manifest = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
 const python = process.env.AERO_PYTHON || (process.platform === 'win32' ? 'python' : 'python3');
 for (const kind of ['aerocraft', 'rea']) {
   const client = new Client({name:'aero-craft-validation',version:'0.1.0'});
@@ -17,6 +19,8 @@ for (const kind of ['aerocraft', 'rea']) {
   });
   try {
     await client.connect(transport);
+    const expectedVersion = kind === 'rea' ? manifest.dependencies['rea-agents'] : manifest.version;
+    assert.equal(client.getServerVersion()?.version, expectedVersion);
     const {tools} = await client.listTools();
     assert.ok(tools.length > 0);
     if (kind === 'aerocraft') {

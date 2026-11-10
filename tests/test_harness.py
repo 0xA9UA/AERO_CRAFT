@@ -30,7 +30,7 @@ class HarnessTests(unittest.TestCase):
         (source / "private.key").write_text("not an instruction", encoding="utf-8")
         return source
 
-    def test_bundled_skill_copies_only_instructions_and_preserves_user_edits(self):
+    def test_bundled_skill_copies_only_instructions_and_backs_up_user_edits(self):
         self.bundle()
         home = self.root / "dsh"
         with patch.object(harness, "ROOT", self.root):
@@ -40,7 +40,86 @@ class HarnessTests(unittest.TestCase):
             self.assertFalse((dest / "private.key").exists())
             (dest / "SKILL.md").write_text("user skill", encoding="utf-8")
             harness.install_bundled_skills(home)
-            self.assertEqual((dest / "SKILL.md").read_text(), "user skill")
+            self.assertEqual((dest / "SKILL.md").read_text(), "pinned skill")
+            backups = list((home / "skill-backups").glob("*/reverse-engineer-anything/SKILL.md"))
+            self.assertEqual(len(backups), 1)
+            self.assertEqual(backups[0].read_text(), "user skill")
+
+    def test_legacy_skill_refresh_removes_old_references_and_is_idempotent(self):
+        self.bundle()
+        home = self.root / "dsh"
+        dest = home / "skills/reverse-engineer-anything"
+        (dest / "references").mkdir(parents=True)
+        (dest / "SKILL.md").write_text("legacy REA instructions", encoding="utf-8")
+        (dest / "references/obsolete.md").write_text("old reference", encoding="utf-8")
+        with patch.object(harness, "ROOT", self.root):
+            harness.install_bundled_skills(home)
+            self.assertEqual((dest / "SKILL.md").read_text(), "pinned skill")
+            self.assertFalse((dest / "references/obsolete.md").exists())
+            self.assertEqual((dest / "references/guide.md").read_text(), "reference")
+            modified = (dest / "SKILL.md").stat().st_mtime_ns
+            harness.install_bundled_skills(home)
+            self.assertEqual((dest / "SKILL.md").stat().st_mtime_ns, modified)
+        self.assertEqual(len(list((home / "skill-backups").iterdir())), 1)
+
+    def test_skill_publication_failure_restores_previous_bundle_and_allows_retry(self):
+        source = self.bundle()
+        home = self.root / "dsh"
+        dest = home / "skills/reverse-engineer-anything"
+        rename = Path.rename
+
+        def fail_publication(path, target):
+            if path.parent.name.startswith(".rea-skill-"):
+                raise OSError("publication failed")
+            return rename(path, target)
+
+        with patch.object(harness, "ROOT", self.root):
+            harness.install_bundled_skills(home)
+            (source / "SKILL.md").write_text("updated skill", encoding="utf-8")
+            with patch.object(Path, "rename", fail_publication):
+                with self.assertRaisesRegex(OSError, "publication failed"):
+                    harness.install_bundled_skills(home)
+            self.assertEqual((dest / "SKILL.md").read_text(), "pinned skill")
+            self.assertFalse(dest.with_suffix(".installing").exists())
+            harness.install_bundled_skills(home)
+            self.assertEqual((dest / "SKILL.md").read_text(), "updated skill")
+
+    def test_skill_refresh_refuses_concurrent_publication(self):
+        self.bundle()
+        home = self.root / "dsh"
+        lock = home / "skills/reverse-engineer-anything.installing"
+        lock.mkdir(parents=True)
+        with patch.object(harness, "ROOT", self.root):
+            with self.assertRaisesRegex(CraftError, "refresh already in progress"):
+                harness.install_bundled_skills(home)
+        self.assertTrue(lock.exists())
+
+    def test_changing_source_during_copy_preserves_previous_skill(self):
+        self.bundle()
+        home = self.root / "dsh"
+        dest = home / "skills/reverse-engineer-anything"
+        dest.mkdir(parents=True)
+        (dest / "SKILL.md").write_text("previous skill", encoding="utf-8")
+
+        def copy_changed_source(source, target):
+            target.write_text("changed during copy", encoding="utf-8")
+
+        with patch.object(harness, "ROOT", self.root), \
+             patch.object(harness.shutil, "copyfile", side_effect=copy_changed_source):
+            with self.assertRaisesRegex(CraftError, "changed during refresh"):
+                harness.install_bundled_skills(home)
+        self.assertEqual((dest / "SKILL.md").read_text(), "previous skill")
+        self.assertFalse(dest.with_suffix(".installing").exists())
+
+    def test_missing_bundle_does_not_silently_reuse_an_existing_skill(self):
+        home = self.root / "dsh"
+        dest = home / "skills/reverse-engineer-anything/SKILL.md"
+        dest.parent.mkdir(parents=True)
+        dest.write_text("old skill", encoding="utf-8")
+        with patch.object(harness, "ROOT", self.root):
+            with self.assertRaisesRegex(CraftError, "REA skill is missing"):
+                harness.install_bundled_skills(home)
+        self.assertEqual(dest.read_text(), "old skill")
 
     def test_missing_skill_fails_setup_instead_of_advertising_it(self):
         with patch.object(harness, "ROOT", self.root):

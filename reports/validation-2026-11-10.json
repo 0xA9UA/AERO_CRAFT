@@ -1,0 +1,133 @@
+{
+  "validated_at": "2026-11-10T15:12:03.866344+00:00",
+  "platform": "Linux x86_64",
+  "python": "3.13.5",
+  "node": "24.22.1",
+  "rea": "6.8.0",
+  "harness": "0.2.1-rc.2",
+  "clean_setup": {
+    "profile": "full",
+    "passed": true,
+    "all_five_node_download_checksums_verified": true
+  },
+  "regression_tests": {
+    "passed": 115,
+    "failed": 0,
+    "skipped": 0
+  },
+  "existing_install_upgrade": {
+    "current_skill_sha256": "8818b645c9fd348399a50a8678b91cff20215690adad484e70282ff9f2ef91ee",
+    "idempotent": true,
+    "matching_instruction_files": 8,
+    "node_after": "v24.22.1",
+    "node_before": "v24.22.0",
+    "old_skill_sha256": "3456aab99d48c3294726065c9d5bd586bc165f2849fd5a3d5080381630564715",
+    "passed": true,
+    "previous_copies_retained": true,
+    "rea_after": "6.8.0",
+    "rea_before": "6.5.0"
+  },
+  "mcp": {
+    "aerocraft": {
+      "passed": true,
+      "tools": 19,
+      "generated_jar_inspection": true
+    },
+    "rea": {
+      "passed": true,
+      "tools": 229,
+      "generated_jar_inspection": true
+    }
+  },
+  "harness_web": {
+    "passed": true,
+    "http_status": 200,
+    "response_bytes": 37448,
+    "authentication": "URL token and session cookie",
+    "model_calls": 0
+  },
+  "java_builds": {
+    "fabric-1.21.1": {
+      "passed": true,
+      "artifact": "projects/upgrade-verification/fabric-1.21.1/build/libs/upgrade_check-0.1.0.jar",
+      "sha256": "d2758ae99471fa0878ad7051bbca99170f6aaae39c10e9bb9374d69afc68709f"
+    },
+    "fabric-26.1": {
+      "passed": true,
+      "artifact": "projects/upgrade-verification/fabric-26.1/build/libs/upgrade_check-0.1.0.jar",
+      "sha256": "35013e09344ae6948598a20f80415a264c27d2d50de152a5878120d5f08e7cad"
+    },
+    "neoforge-1.21.1": {
+      "passed": true,
+      "artifact": "projects/upgrade-verification/neoforge-1.21.1/build/libs/upgrade_check-0.1.0.jar",
+      "sha256": "02541974fc83999bb797411c490613b38cec817e75d3177f368dd4baf213ecda"
+    },
+    "forge-1.20.1": {
+      "passed": true,
+      "artifact": "projects/upgrade-verification/forge-1.20.1/build/libs/upgrade_check-0.1.0.jar",
+      "sha256": "76848eb19e27c0c81303d09303ceb20f37b6d1d99513c27741ab6bd48bf83948"
+    }
+  },
+  "bedrock_builds": {
+    "bedrock_starter": {
+      "passed": true,
+      "api": true,
+      "unit_tests": 1,
+      "artifact_sha256": "603bf6ffeccef737c1850b14a70bf84b774b17d1d70982b81393483bc337f8de"
+    },
+    "industrial_reference": {
+      "passed": true,
+      "api": true,
+      "unit_tests": 14,
+      "artifact_sha256": "0362aaf89c6f0eec0fe4d66f4b1dc5a94afe800463b7922038bd87de7fbac882"
+    }
+  },
+  "native_bedrock": {
+    "passed": true,
+    "version": "1.26.63.1",
+    "source_url": "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-1.26.63.1.zip",
+    "download_sha256": "b40b04c8f5a7c42a19ee685c22fc593e66116b9c22741b8c75489306b252ff62",
+    "binary_sha256": "dc9b3c566a014cf53930eb1b54c6b599a99a81cc32c68aba06a5d73a0fd63179",
+    "layers": {
+      "api": true,
+      "build": true,
+      "native": true,
+      "static": true,
+      "unit": true
+    },
+    "unit_tests": 14,
+    "native_assertions": 20,
+    "observed_boots": [
+      1,
+      2
+    ],
+    "addon_sha256": "0362aaf89c6f0eec0fe4d66f4b1dc5a94afe800463b7922038bd87de7fbac882"
+  },
+  "port_workflow": {
+    "passed": true,
+    "assessment_directions": [
+      "java-to-bedrock",
+      "bedrock-to-neoforge"
+    ],
+    "recipe_conversion": true,
+    "decompilers": [
+      "cfr",
+      "vineflower"
+    ],
+    "contract_change_invalidated_previous_verification": true,
+    "candidate_ready_after_reverification": true,
+    "release_ready": false,
+    "expected_release_blockers": [
+      "unassessed required features",
+      "missing connected-client evidence"
+    ]
+  },
+  "scope": {
+    "linux_x64_execution": true,
+    "windows_macos_arm_execution": false,
+    "java_game_startup": false,
+    "connected_minecraft_client": false,
+    "complete_mod_port": false,
+    "model_calls": 0
+  }
+}

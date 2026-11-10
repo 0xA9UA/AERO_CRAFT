@@ -5,8 +5,8 @@ AERO_CRAFT's own code is MIT licensed. Third-party software is downloaded at ins
 | Component | Upstream | License / notice |
 |---|---|---|
 | DeepSeek Harness 0.2.1-rc.2 | https://github.com/deepseek-ai/deepseek-harness | MIT; upstream THIRD_PARTY_NOTICES also applies |
-| REA 6.5.0 | https://github.com/morluto/rea | MIT and dependencies' notices |
-| Node.js 24.22.0 | https://nodejs.org/ | MIT and bundled third-party licenses |
+| REA 6.8.0 | https://github.com/morluto/rea | MIT and dependencies' notices |
+| Node.js 24.22.1 | https://nodejs.org/ | MIT and bundled third-party licenses |
 | Eclipse Temurin JDKs | https://adoptium.net/ | GPL v2 with Classpath Exception and included notices |
 | Gradle | https://gradle.org/ | Apache 2.0 and distribution notices |
 | CFR 0.152 | https://www.benf.org/other/cfr/ | MIT |

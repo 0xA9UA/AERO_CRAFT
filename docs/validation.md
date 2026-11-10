@@ -1,5 +1,27 @@
 # Validation record
 
+## 2026-11-10 — REA 6.8.0 upgrade
+
+Validated from a clean Linux x64 installation with Node 24.22.1, REA 6.8.0 and
+DeepSeek Harness 0.2.1-rc.2. The [recorded results](../reports/validation-2026-11-10.json)
+include artifact hashes and the verification scope.
+
+| Check | Result | Boundary |
+|---|---|---|
+| Python regression suite | 115 passed, zero skipped | Includes runtime upgrades, old and edited skill copies, rollback, concurrent refresh rejection and existing port checks |
+| Existing installation migration | Real Node 24.22.0 upgraded to 24.22.1; real REA 6.5.0 instructions refreshed to the eight files shipped by 6.8.0 | Previous runtime and instructions retained; repeated refresh is idempotent |
+| AERO_CRAFT / REA MCP | 19 / 229 tools; versions and tool calls passed | Installed DSH SDK negotiation; both servers inspected the generated Fabric JAR |
+| DeepSeek Harness | Configuration composition and authenticated HTTP 200 passed | Local startup and session cookie; zero model calls |
+| Java profiles | Fabric 1.21.1, Fabric 26.1, NeoForge 1.21.1 and Forge 1.20.1 built | Fresh compiled JARs; Java game startup remains unverified |
+| Bedrock builds | Starter and industrial reference passed API, unit and packaging checks | Industrial reference executed 14 behavior tests |
+| Native Bedrock | Official BDS 1.26.63.1 passed all five verification layers, 20 native assertions and two boots | Original industrial example; client visuals and touch interaction remain unverified |
+| Port workflow | Both assessment directions, recipe conversion, CFR and Vineflower passed | Adding a contract invalidated prior verification; successful re-verification allowed a test candidate while required feature and client evidence kept release readiness false |
+
+This run covers Linux x64. The five Node download pins match the publisher's
+checksum manifest. Windows, macOS, ARM execution and connected Minecraft clients
+require their own validation runs. Full native logs and generated projects are
+retained locally under ignored `reports/local/rea-6.8.0`, `.runtime` and `projects`.
+
 ## 2026-10-18: autonomous Bedrock port safeguards
 
 Validated on Linux x64 after reviewing the first TechReborn run. The sanitized

@@ -2,6 +2,7 @@
 """Maintainer-only resolver. Review and commit changed hashes; never runs at install."""
 
 import concurrent.futures
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -58,7 +59,7 @@ def hashed(url, version, license, archive="jar"):
 
 def main():
     tools = {}
-    v = "24.22.0"
+    v = "24.22.1"
     sums = {
         row.split()[1]: row.split()[0]
         for row in read(f"https://nodejs.org/dist/v{v}/SHASUMS256.txt")
@@ -125,7 +126,7 @@ def main():
         }
     result = {
         "schema_version": 1,
-        "resolved_on": "2026-10-17",
+        "resolved_on": datetime.now(timezone.utc).date().isoformat(),
         "harness": {
             "npm": "@deepseek-ai/dsh",
             "version": "0.2.1-rc.2",

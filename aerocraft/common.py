@@ -68,6 +68,24 @@ def sha256(path):
         return hashlib.file_digest(f, "sha256").hexdigest()
 
 
+def publish_directory(stage, destination, backups):
+    """Publish a staged directory under the caller's lock, retaining the old copy."""
+    backup = None
+    if destination.exists() or destination.is_symlink():
+        backups.mkdir(parents=True, exist_ok=True)
+        backup = Path(tempfile.mkdtemp(prefix=destination.name + "-", dir=backups)) / destination.name
+        destination.rename(backup)
+    try:
+        stage.rename(destination)
+    except BaseException:
+        if backup is not None:
+            backup.rename(destination)
+            backup.parent.rmdir()
+        raise
+    if backup is not None:
+        print(f"Previous installation retained at {backup}", file=sys.stderr)
+
+
 def download(url, destination, digest):
     """HTTPS acquisition into a private temporary file; verify before publishing."""
     if not url.startswith("https://") or not re.fullmatch(r"[a-f0-9]{64}", digest):
