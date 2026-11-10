@@ -227,9 +227,9 @@
     "id": "rea",
     "title": "REA tool documentation",
     "url": "https://github.com/morluto/rea",
-    "version_scope": "6.5.0",
+    "version_scope": "6.8.0",
     "summary": "Evidence-led archives, JavaScript, native analysis and MCP. Provider capabilities vary; JVM decompilation uses the dedicated tools.",
-    "reviewed_on": "2026-10-17"
+    "reviewed_on": "2026-11-10"
   },
   {
     "id": "ghidra",

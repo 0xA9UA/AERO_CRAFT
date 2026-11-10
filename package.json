@@ -5,11 +5,11 @@
   "description": "Minecraft development and porting suite powered by DeepSeek Harness",
   "license": "MIT",
   "engines": {
-    "node": ">=24.11.0 <25"
+    "node": ">=24.22.1 <25"
   },
   "dependencies": {
     "@deepseek-ai/dsh": "0.2.1-rc.2",
-    "rea-agents": "6.5.0",
+    "rea-agents": "6.8.0",
     "@minecraft/server": "2.10.0",
     "@minecraft/server-ui": "2.2.0",
     "typescript": "7.0.2"

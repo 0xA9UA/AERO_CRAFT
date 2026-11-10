@@ -1,6 +1,6 @@
 # AERO_CRAFT
 
-A clone-installable Minecraft development suite built around **DeepSeek Harness 0.2.1-rc.2**, **REA 6.5.0**, managed Java toolchains and practical mod/addon workflows.
+A clone-installable Minecraft development suite built around **DeepSeek Harness 0.2.1-rc.2**, **REA 6.8.0**, managed Java toolchains and practical mod/addon workflows.
 
 Create Java mods and Bedrock addons, inspect and decompile existing mods, plan Minecraft/Java/loader upgrades, and develop ports in either direction. The suite supplies an agent workspace, tools, starters, API references and validation. Cross-engine gameplay still requires implementation and native testing; it is not a universal one-click converter.
 
@@ -21,7 +21,7 @@ On Windows use `py -3` in place of `python3`, or run `./install.ps1`. On Linux/m
 
 The harness prints a local authenticated browser URL. Open it, configure your own provider in **Settings → Models**, select the project workspace, and start a session. Model credentials are not bundled. DeepSeek and the other endpoints supported by that release can be configured in its UI. The suite does not need a model key for builds, inspections, decompilation, packaging or tests.
 
-Standard setup installs Node 24.22.0, the pinned harness/REA/npm dependencies, JDKs 21 and 25, CFR and Vineflower. Full setup adds JDKs 8 and 17; Java builds also fetch their missing JDK and Gradle automatically:
+Standard setup installs Node 24.22.1, the pinned harness/REA/npm dependencies, JDKs 21 and 25, CFR and Vineflower. Full setup adds JDKs 8 and 17; Java builds also fetch their missing JDK and Gradle automatically:
 
 ```sh
 python3 aero.py setup --profile full

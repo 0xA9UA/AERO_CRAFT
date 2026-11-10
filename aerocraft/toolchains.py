@@ -16,6 +16,7 @@ from .common import (
     CraftError,
     download,
     extract,
+    publish_directory,
     read_json,
     run,
     sha256,
@@ -57,8 +58,6 @@ def install(name):
     row = spec(name)
     destination = RUNTIME / "tools" / name
     receipt = destination / "aero-install.json"
-    if receipt.is_file() and read_json(receipt).get("sha256") == row["sha256"]:
-        return destination
     destination.parent.mkdir(parents=True, exist_ok=True)
     lock = destination.with_suffix(".installing")
     try:
@@ -68,6 +67,17 @@ def install(name):
             f"Install already in progress: {lock}. If interrupted, remove that empty lock directory and retry."
         ) from None
     try:
+        if destination.is_symlink():
+            raise CraftError(
+                f"{destination} is a symlink. Move it aside before installing a managed tool."
+            )
+        if destination.exists():
+            if not receipt.is_file() or receipt.is_symlink():
+                raise CraftError(
+                    f"{destination} has no managed installation receipt. Move it aside before reinstalling."
+                )
+            if read_json(receipt).get("sha256") == row["sha256"]:
+                return destination
         archive = RUNTIME / "downloads" / (row["sha256"] + "." + row["archive"])
         print(f'Installing {name} {row["version"]} for {host_key()}', file=sys.stderr)
         download(row["url"], archive, row["sha256"])
@@ -84,11 +94,7 @@ def install(name):
                 if len(children) == 1 and children[0].is_dir():
                     stage = children[0]
             write_json(stage / "aero-install.json", row)
-            if destination.exists():
-                raise CraftError(
-                    f"{destination} has a different/incomplete installation. Move it aside before reinstalling."
-                )
-            shutil.move(str(stage), destination)
+            publish_directory(stage, destination, RUNTIME / "tool-backups")
         return destination
     finally:
         lock.rmdir()
@@ -138,7 +144,7 @@ def java(major=21, ensure=False):
 def node(ensure=False):
     base = RUNTIME / "tools/node"
     binary = base / ("node.exe" if os.name == "nt" else "bin/node")
-    if not binary.exists() and ensure:
+    if ensure:
         install("node")
     if not binary.exists():
         raise CraftError("Node is not installed. Run: python aero.py setup")
@@ -181,6 +187,8 @@ def npm(args, cwd=ROOT):
 def setup(profile="standard"):
     node(ensure=True)
     npm(["ci", "--no-audit", "--no-fund"])
+    from .harness import install_bundled_skills
+    install_bundled_skills(RUNTIME / "dsh")
     names = [] if profile == "minimal" else ["jdk21", "jdk25", "cfr", "vineflower"]
     if profile == "full":
         names += ["jdk8", "jdk17"]

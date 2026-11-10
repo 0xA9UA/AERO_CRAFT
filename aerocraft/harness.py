@@ -6,31 +6,53 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
-from .common import ROOT, RUNTIME, CraftError, read_json, write_json
+import tempfile
+from .common import ROOT, RUNTIME, CraftError, publish_directory, sha256, write_json
 from .toolchains import environment, java_home, node
 
 
 def install_bundled_skills(dsh_home):
-    """Expose the pinned REA instructions without replacing a user's skill."""
+    """Keep the active REA instructions aligned, backing up old or edited copies."""
+    dsh_home = Path(dsh_home)
     source = ROOT / "node_modules/rea-agents/skills/reverse-engineer-anything"
-    target = Path(dsh_home) / "skills/reverse-engineer-anything"
-    if target.exists() or target.is_symlink():
-        return
+    target = dsh_home / "skills/reverse-engineer-anything"
     if not (source / "SKILL.md").is_file():
         raise CraftError("Bundled REA skill is missing; run python aero.py setup first.")
     # Copy only the shipped instruction bundle, never another user's skill roots.
     members = [source / "SKILL.md", *sorted((source / "references").rglob("*.md"))]
-    if any(p.is_symlink() for p in members):
+    if source.is_symlink() or any(p.is_symlink() for p in source.rglob("*")):
         raise CraftError("Bundled REA skill must contain regular instruction files.")
+    expected = {p.relative_to(source): sha256(p) for p in members}
     target.parent.mkdir(parents=True, exist_ok=True)
+    lock = target.with_suffix(".installing")
     try:
-        target.mkdir()
+        lock.mkdir()
     except FileExistsError:
-        return
-    for member in members:
-        dest = target / member.relative_to(source)
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(member, dest)
+        raise CraftError(
+            f"REA skill refresh already in progress: {lock}. "
+            "Remove this empty lock only after the other refresh has stopped."
+        ) from None
+    try:
+        if target.is_dir() and not target.is_symlink():
+            existing = list(target.rglob("*"))
+            if not any(p.is_symlink() for p in existing):
+                actual = {p.relative_to(target): sha256(p) for p in existing if p.is_file()}
+                if actual == expected:
+                    return
+        with tempfile.TemporaryDirectory(prefix=".rea-skill-", dir=dsh_home) as tmp:
+            stage = Path(tmp) / target.name
+            stage.mkdir()
+            for relative in expected:
+                dest = stage / relative
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source / relative, dest)
+                if sha256(dest) != expected[relative]:
+                    raise CraftError(
+                        "Bundled REA instructions changed during refresh. Retry after setup finishes."
+                    )
+            publish_directory(stage, target, dsh_home / "skill-backups")
+    finally:
+        lock.rmdir()
 
 
 def prepare(workspace):
